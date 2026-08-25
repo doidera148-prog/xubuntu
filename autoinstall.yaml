@@ -1,0 +1,39 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: pt_BR.UTF-8
+  keyboard:
+    layout: br
+  network:
+    version: 2
+    wifis:
+      wlif:
+        match:
+          name: wl*
+        dhcp4: true
+        access-points:
+          "William2":
+            password: "araujo321"
+  identity:
+    hostname: xubuntu-casa
+    username: araujo
+    realname: "Araujo"
+    password: "Gustavo248*"
+    hashed: false
+  ubuntu-desktop-provision:
+    install_type: normal
+  packages:
+    - xubuntu-desktop
+    - ubuntu-restricted-extras
+  snaps:
+    - name: firefox
+    - name: snap-store
+    - name: snapd-desktop-integration
+    - name: gtk-common-themes
+  storage:
+    layout:
+      name: direct
+  late-commands:
+    - curtin in-target -- grub-install --removable
+    - curtin in-target -- mkdir -p /boot/efi/EFI/BOOT
+    - curtin in-target -- cp /boot/efi/EFI/ubuntu/grubx64.efi /boot/efi/EFI/BOOT/BOOTX64.EFI
