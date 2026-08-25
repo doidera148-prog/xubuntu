@@ -18,8 +18,7 @@ autoinstall:
     hostname: xubuntu-casa
     username: araujo
     realname: "Araujo"
-    password: "Gustavo248*"
-    hashed: false
+    password: "$6$BaquRV4VMK9z2ct3$l06wQFD1AMyplrHKUKTiB.8PKFVNjJxmrumA2MgUZP2bYExM04bnJimYNERru5CHfgNnbFKj7.nwrROZ63Wkd1"
   ubuntu-desktop-provision:
     install_type: normal
   packages:
