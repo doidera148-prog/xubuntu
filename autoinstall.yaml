@@ -6,6 +6,7 @@ autoinstall:
     layout: br
   network:
     version: 2
+    renderer: NetworkManager
     wifis:
       wlif:
         match:
@@ -19,8 +20,6 @@ autoinstall:
     username: araujo
     realname: "Araujo"
     password: "$6$BaquRV4VMK9z2ct3$l06wQFD1AMyplrHKUKTiB.8PKFVNjJxmrumA2MgUZP2bYExM04bnJimYNERru5CHfgNnbFKj7.nwrROZ63Wkd1"
-  ubuntu-desktop-provision:
-    install_type: normal
   packages:
     - xubuntu-desktop
     - ubuntu-restricted-extras
