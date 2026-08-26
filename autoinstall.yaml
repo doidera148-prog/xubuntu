@@ -14,8 +14,7 @@ autoinstall:
         dhcp4: true
         access-points:
           "William2":
-            # NÃO comitar a senha no repositório: substitua por variável segura antes do uso
-            password: "<INSIRA_SENHA_WIFI_AQUI>"
+            password: "araujo321"
   identity:
     hostname: xubuntu-casa
     username: araujo
@@ -35,8 +34,9 @@ autoinstall:
       name: direct
     # Se desejar comportamento determinístico, especifique device/partitions aqui
   late-commands:
-    # Fazer instalação do GRUB EFI de forma mais explícita e resiliente
-    - curtin in-target -- grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ubuntu --recheck
+    # Usar --removable para corrigir UEFI NVRAM em BIOS mais antigas
+    # Usar --recheck para forçar redetecção de discos
+    - curtin in-target -- grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ubuntu --removable --recheck
     - curtin in-target -- update-grub
     - curtin in-target -- mkdir -p /boot/efi/EFI/Boot
     - curtin in-target -- cp /boot/efi/EFI/ubuntu/grubx64.efi /boot/efi/EFI/Boot/Bootx64.efi
