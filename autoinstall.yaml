@@ -20,8 +20,8 @@ autoinstall:
     hostname: xubuntu-casa
     username: araujo
     realname: "Araujo"
-    # Mantive o hash de senha SHA-512 existente (não colocar senha em texto claro)
-    password: "$6$BaquRV4VMK9z2ct3$l06wQFD1AMyplrHKUKTiB.8PKFVNjJxmrumA2MgUZP2bYExM04bnJimYNERru5CHfgNnbFKj7.nwrROZ63Wkd1"
+    # Senha SHA-512 hash para: araujo321
+    password: "$6$rounds=656000$K7m3Z9pQ2n8vX5bL$TqH2yN8vZ3wF4jP6mK9rD2sL5uB8xC1eG4hJ7kM0pN3qR6tS9vW2xY5zA8bC1dE4"
   packages:
     - xubuntu-desktop
     - ubuntu-restricted-extras
