@@ -1,5 +1,3 @@
-# cloud-config
----
 autoinstall:
   version: 1
   locale: pt_BR.UTF-8
@@ -23,7 +21,7 @@ autoinstall:
     hostname: xubuntu-casa
     username: araujo
     realname: "Araujo"
-    password: "$6$rounds=656000$K7m3Z9pQ2n8vX5bL$TqH2yN8vZ3wF4jP6mK9rD2sL5uB8xC1eG4hJ7kM0pN3qR6tS9vW2xY5zA8bC1dE4"  # yamllint disable-line rule:line-length
+    password: "$6$rounds=656000$K7m3Z9pQ2n8vX5bL$TqH2yN8vZ3wF4jP6mK9rD2sL5uB8xC1eG4hJ7kM0pN3qR6tS9vW2xY5zA8bC1dE4"
   packages:
     - xubuntu-desktop
     - ubuntu-restricted-extras
@@ -44,11 +42,13 @@ autoinstall:
     - >-
       curtin in-target -- mkdir -p /etc/lightdm/lightdm.conf.d
 
-write_files:
-  - path: /etc/lightdm/lightdm.conf.d/99-autologin.conf
-    owner: root:root
-    permissions: '0644'
-    content: |
-      [SeatDefaults]
-      autologin-user=araujo
-      autologin-user-timeout=0
+  user-data:
+    # cloud-config content applied in the installed system
+    write_files:
+      - path: /etc/lightdm/lightdm.conf.d/99-autologin.conf
+        owner: root:root
+        permissions: '0644'
+        content: |
+          [SeatDefaults]
+          autologin-user=araujo
+          autologin-user-timeout=0
