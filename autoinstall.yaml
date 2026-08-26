@@ -4,7 +4,6 @@ autoinstall:
   timezone: America/Maceio
   keyboard:
     layout: br
-    variant: abnt2
   network:
     version: 2
     renderer: NetworkManager
