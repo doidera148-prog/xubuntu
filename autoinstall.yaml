@@ -41,8 +41,7 @@ autoinstall:
   late-commands:
     - >-
       curtin in-target -- grub-install --target=x86_64-efi
-      --efi-directory=/boot/efi --bootloader-id=ubuntu --removable
-      --recheck
+      --efi-directory=/boot/efi --bootloader-id=ubuntu --removable --recheck
     - curtin in-target -- update-grub
     - >-
       curtin in-target -- mkdir -p /boot/efi/EFI/Boot
@@ -56,8 +55,9 @@ autoinstall:
     - >-
       curtin in-target -- mkdir -p /etc/lightdm/lightdm.conf.d
     - >-
-      curtin in-target -- bash -c "cat > /etc/lightdm/lightdm.conf.d/99-autologin.conf <<'EOF'
-[SeatDefaults]
-autologin-user=araujo
-autologin-user-timeout=0
-EOF"
+      curtin in-target -- bash -c "cat > /etc/lightdm/lightdm.conf.d/99-autologin.conf
+      <<'EOF'
+      [SeatDefaults]
+      autologin-user=araujo
+      autologin-user-timeout=0
+      EOF"
