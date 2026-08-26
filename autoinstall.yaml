@@ -27,6 +27,10 @@ autoinstall:
   packages:
     - xubuntu-desktop
     - ubuntu-restricted-extras
+  apt:
+    primary:
+      - arches: [default]
+        uri: http://br.archive.ubuntu.com/ubuntu
   storage:
     layout:
       name: direct
