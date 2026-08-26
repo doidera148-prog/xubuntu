@@ -36,23 +36,28 @@ autoinstall:
   storage:
     layout:
       name: direct
-    # Se desejar comportamento determinístico, especifique device/partitions aqui
+    # Se desejar comportamento determinístico, especifique device/partitions
+    # aqui
   late-commands:
     - >-
-      curtin in-target -- grub-install --target=x86_64-efi --efi-directory=/boot/efi
-      --bootloader-id=ubuntu --removable --recheck
+      curtin in-target -- grub-install --target=x86_64-efi
+      --efi-directory=/boot/efi --bootloader-id=ubuntu --removable
+      --recheck
     - curtin in-target -- update-grub
     - >-
       curtin in-target -- mkdir -p /boot/efi/EFI/Boot
     - >-
       curtin in-target -- bash -c 'if [ -f /boot/efi/EFI/ubuntu/shimx64.efi ];
-      then cp /boot/efi/EFI/ubuntu/shimx64.efi /boot/efi/EFI/Boot/Bootx64.efi;
+      then cp /boot/efi/EFI/ubuntu/shimx64.efi
+      /boot/efi/EFI/Boot/Bootx64.efi;
       elif [ -f /boot/efi/EFI/ubuntu/grubx64.efi ]; then
-      cp /boot/efi/EFI/ubuntu/grubx64.efi /boot/efi/EFI/Boot/Bootx64.efi; fi'
+      cp /boot/efi/EFI/ubuntu/grubx64.efi
+      /boot/efi/EFI/Boot/Bootx64.efi; fi'
     - >-
       curtin in-target -- mkdir -p /etc/lightdm/lightdm.conf.d
     - >-
-      curtin in-target -- bash -c 'echo "[SeatDefaults]" >
-      /etc/lightdm/lightdm.conf.d/99-autologin.conf && echo
-      "autologin-user=araujo" >> /etc/lightdm/lightdm.conf.d/99-autologin.conf &&
-      echo "autologin-user-timeout=0" >> /etc/lightdm/lightdm.conf.d/99-autologin.conf'
+      curtin in-target -- bash -c "cat > /etc/lightdm/lightdm.conf.d/99-autologin.conf <<'EOF'
+[SeatDefaults]
+autologin-user=araujo
+autologin-user-timeout=0
+EOF"
