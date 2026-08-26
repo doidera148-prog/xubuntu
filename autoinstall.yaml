@@ -37,7 +37,6 @@ autoinstall:
       add-apt-repository -y restricted &&
       apt-get update &&
       apt-get -y install vlc gimp blender audacity inkscape synaptic"
-
   user-data:
     # cloud-config content applied in the installed system
     write_files:
