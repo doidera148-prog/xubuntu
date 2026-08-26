@@ -42,7 +42,13 @@ autoinstall:
     - >-
       curtin in-target -- mkdir -p /etc/lightdm/lightdm.conf.d
     - >-
-      curtin in-target -- sh -c "apt-get update && apt-get -y install software-properties-common && add-apt-repository -y multiverse && add-apt-repository -y restricted && apt-get update && apt-get -y install ubuntu-drivers-common && ubuntu-drivers autoinstall || true"
+      curtin in-target -- sh -c
+      "apt-get update &&
+      apt-get -y install software-properties-common &&
+      add-apt-repository -y multiverse &&
+      add-apt-repository -y restricted &&
+      apt-get update &&
+      apt-get -y install vlc gimp blender audacity inkscape synaptic"
 
   user-data:
     # cloud-config content applied in the installed system
