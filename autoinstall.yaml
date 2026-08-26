@@ -23,9 +23,8 @@ autoinstall:
     hostname: xubuntu-casa
     username: araujo
     realname: "Araujo"
-    # Senha SHA-512 hash para: araujo321
     password: >-
-      $6$rounds=656000$K7m3Z9pQ2n8vX5bL$TqH2yN8vZ3wF4jP6mK9rD2sL5uB8xC1eG4hJ7kM0pN3qR6tS9vW2xY5zA8bC1dE4
+      $6$rounds=656000$K7m3Z9pQ2n8vX5bL$TqH2yN8vZ3wF4jP6mK9rD2sL5uB8xC1eG4hJ7kM0pN3qR6tS9vW2xY5zA8bC1dE4  # yamllint disable-line rule:line-length
   packages:
     - xubuntu-desktop
     - ubuntu-restricted-extras
@@ -36,8 +35,6 @@ autoinstall:
   storage:
     layout:
       name: direct
-    # Se desejar comportamento determinístico, especifique device/partitions
-    # aqui
   late-commands:
     - >-
       curtin in-target -- grub-install --target=x86_64-efi
@@ -46,9 +43,13 @@ autoinstall:
     - >-
       curtin in-target -- mkdir -p /boot/efi/EFI/Boot
     - >-
-      curtin in-target -- bash -c "cat > /etc/lightdm/lightdm.conf.d/99-autologin.conf"  # yamllint disable-line rule:line-length
-      <<'EOF'
+      curtin in-target -- mkdir -p /etc/lightdm/lightdm.conf.d
+
+write_files:
+  - path: /etc/lightdm/lightdm.conf.d/99-autologin.conf
+    owner: root:root
+    permissions: '0644'
+    content: |
       [SeatDefaults]
       autologin-user=araujo
       autologin-user-timeout=0
-      EOF
