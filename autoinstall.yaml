@@ -27,11 +27,6 @@ autoinstall:
   packages:
     - xubuntu-desktop
     - ubuntu-restricted-extras
-  snaps:
-    - name: firefox
-    - name: snap-store
-    - name: snapd-desktop-integration
-    - name: gtk-common-themes
   storage:
     layout:
       name: direct
