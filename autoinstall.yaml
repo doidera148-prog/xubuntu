@@ -23,8 +23,7 @@ autoinstall:
     hostname: xubuntu-casa
     username: araujo
     realname: "Araujo"
-    password: >-
-      $6$rounds=656000$K7m3Z9pQ2n8vX5bL$TqH2yN8vZ3wF4jP6mK9rD2sL5uB8xC1eG4hJ7kM0pN3qR6tS9vW2xY5zA8bC1dE4  # yamllint disable-line rule:line-length
+    password: "$6$rounds=656000$K7m3Z9pQ2n8vX5bL$TqH2yN8vZ3wF4jP6mK9rD2sL5uB8xC1eG4hJ7kM0pN3qR6tS9vW2xY5zA8bC1dE4"  # yamllint disable-line rule:line-length
   packages:
     - xubuntu-desktop
     - ubuntu-restricted-extras
