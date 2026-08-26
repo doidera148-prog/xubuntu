@@ -43,3 +43,6 @@ autoinstall:
     - curtin in-target -- update-grub
     - curtin in-target -- mkdir -p /boot/efi/EFI/Boot
     - curtin in-target -- cp /boot/efi/EFI/ubuntu/grubx64.efi /boot/efi/EFI/Boot/Bootx64.efi
+    # Configurar autologin para o usuário araujo via LightDM
+    - curtin in-target -- mkdir -p /etc/lightdm/lightdm.conf.d
+    - curtin in-target -- bash -c 'echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf.d/99-autologin.conf && echo "autologin-user=araujo" >> /etc/lightdm/lightdm.conf.d/99-autologin.conf && echo "autologin-user-timeout=0" >> /etc/lightdm/lightdm.conf.d/99-autologin.conf'
