@@ -4,18 +4,6 @@ autoinstall:
   timezone: America/Maceio
   keyboard:
     layout: br
-  network:
-    version: 2
-    renderer: NetworkManager
-    wifis:
-      wlif:
-        match:
-          name: wl*
-        dhcp4: true
-        dhcp6: true
-        access-points:
-          "William2":
-            password: "araujo321"
   identity:
     hostname: xubuntu-casa
     username: araujo
