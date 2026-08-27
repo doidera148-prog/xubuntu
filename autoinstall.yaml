@@ -9,10 +9,7 @@ autoinstall:
     username: araujo
     realname: "Araujo"
     password: "$6$rounds=656000$K7m3Z9pQ2n8vX5bL$TqH2yN8vZ3wF4jP6mK9rD2sL5uB8xC1eG4hJ7kM0pN3qR6tS9vW2xY5zA8bC1dE4"
-  packages:
-    - xubuntu-desktop
-    - ubuntu-restricted-extras
-    - ubuntu-drivers-common
+  packages: []
   apt:
     primary:
       - arches: [default]
@@ -34,7 +31,7 @@ autoinstall:
       add-apt-repository -y multiverse &&
       add-apt-repository -y restricted &&
       apt-get update &&
-      apt-get -y install vlc gimp audacity inkscape synaptic"
+      apt-get -y install xubuntu-desktop ubuntu-restricted-extras ubuntu-drivers-common vlc gimp audacity inkscape synaptic"
     - >-
       curtin in-target -- grub-install --target=x86_64-efi
       --efi-directory=/boot/efi --bootloader-id=ubuntu --removable --recheck
