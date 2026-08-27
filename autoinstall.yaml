@@ -1,55 +1,83 @@
 autoinstall:
   version: 1
+
   locale: pt_BR.UTF-8
   timezone: America/Maceio
+
   keyboard:
     layout: br
+    variant: ""
+
+  source:
+    id: xubuntu-desktop
+
   identity:
     hostname: xubuntu-casa
     username: araujo
     realname: "Araujo"
-    password: "$6$rounds=656000$K7m3Z9pQ2n8vX5bL$TqH2yN8vZ3wF4jP6mK9rD2sL5uB8xC1eG4hJ7kM0pN3qR6tS9vW2xY5zA8bC1dE4"
-  packages: []
-  apt:
-    primary:
-      - arches: [default]
-        uri: http://br.archive.ubuntu.com/ubuntu
+    password: '$6$RSVvzi7h$KxJFnz6HcOvgZvolo5DAROVE3W0Md4OZH3WqwZZfmYMSMVQsT/ByuoDo2utOFdvi5WeHtb/vak8L2TeOy964K.'
+
   storage:
     layout:
       name: direct
+
+  apt:
+    mirror-selection:
+      primary:
+        - uri: http://br.archive.ubuntu.com/ubuntu
+          arches:
+            - amd64
+    fallback: offline-install
+
+  packages:
+    - vlc
+    - gimp
+    - audacity
+    - inkscape
+    - synaptic
+    - openssh-server
+
+  codecs:
+    install: true
+
+  drivers:
+    install: true
+
+  ssh:
+    install-server: true
+    allow-pw: true
+
   late-commands:
+
     - >-
-      curtin in-target -- fallocate -l 2G /swapfile &&
-      chmod 600 /swapfile &&
-      mkswap /swapfile &&
-      swapon /swapfile &&
-      echo '/swapfile none swap sw 0 0' >> /etc/fstab
-    - >-
-      curtin in-target -- sh -c
-      "apt-get update &&
-      apt-get -y install software-properties-common &&
-      add-apt-repository -y multiverse &&
-      add-apt-repository -y restricted &&
-      apt-get update &&
-      apt-get -y install xubuntu-desktop ubuntu-restricted-extras &&
-      apt-get -y install ubuntu-drivers-common vlc gimp audacity &&
-      apt-get -y install inkscape synaptic"
-    - >-
-      curtin in-target -- grub-install --target=x86_64-efi
-      --efi-directory=/boot/efi --bootloader-id=ubuntu
-      --removable --recheck
-    - curtin in-target -- update-grub
-    - >-
-      curtin in-target -- mkdir -p /boot/efi/EFI/Boot
-    - >-
-      curtin in-target -- mkdir -p /etc/lightdm/lightdm.conf.d
+      curtin in-target --target=/target -- grub-install
+      --target=x86_64-efi
+      --efi-directory=/boot/efi
+      --bootloader-id=ubuntu
+      --removable
+      --recheck
+
+    - curtin in-target --target=/target -- update-grub
+
   user-data:
-    # cloud-config content applied in the installed system
+
     write_files:
       - path: /etc/lightdm/lightdm.conf.d/99-autologin.conf
         owner: root:root
-        permissions: '0644'
+        permissions: "0644"
         content: |
-          [SeatDefaults]
+          [Seat:*]
           autologin-user=araujo
           autologin-user-timeout=0
+
+    runcmd:
+      - |
+        if [ ! -f /swapfile ]; then
+          fallocate -l 2G /swapfile
+          chmod 600 /swapfile
+          mkswap /swapfile
+          echo '/swapfile none swap sw 0 0' >> /etc/fstab
+        fi
+        swapon /swapfile
+
+  shutdown: reboot
