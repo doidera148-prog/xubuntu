@@ -29,14 +29,6 @@ autoinstall:
             - amd64
     fallback: offline-install
 
-  packages:
-    - vlc
-    - gimp
-    - audacity
-    - inkscape
-    - synaptic
-    - openssh-server
-
   codecs:
     install: true
 
@@ -48,7 +40,6 @@ autoinstall:
     allow-pw: true
 
   late-commands:
-
     - >-
       curtin in-target --target=/target -- grub-install
       --target=x86_64-efi
@@ -60,7 +51,6 @@ autoinstall:
     - curtin in-target --target=/target -- update-grub
 
   user-data:
-
     write_files:
       - path: /etc/lightdm/lightdm.conf.d/99-autologin.conf
         owner: root:root
@@ -69,15 +59,5 @@ autoinstall:
           [Seat:*]
           autologin-user=araujo
           autologin-user-timeout=0
-
-    runcmd:
-      - |
-        if [ ! -f /swapfile ]; then
-          fallocate -l 2G /swapfile
-          chmod 600 /swapfile
-          mkswap /swapfile
-          echo '/swapfile none swap sw 0 0' >> /etc/fstab
-        fi
-        swapon /swapfile
 
   shutdown: reboot
