@@ -22,13 +22,11 @@ autoinstall:
       name: direct
   late-commands:
     - >-
-      curtin in-target -- grub-install --target=x86_64-efi
-      --efi-directory=/boot/efi --bootloader-id=ubuntu --removable --recheck
-    - curtin in-target -- update-grub
-    - >-
-      curtin in-target -- mkdir -p /boot/efi/EFI/Boot
-    - >-
-      curtin in-target -- mkdir -p /etc/lightdm/lightdm.conf.d
+      curtin in-target -- fallocate -l 2G /swapfile &&
+      chmod 600 /swapfile &&
+      mkswap /swapfile &&
+      swapon /swapfile &&
+      echo '/swapfile none swap sw 0 0' >> /etc/fstab
     - >-
       curtin in-target -- sh -c
       "apt-get update &&
@@ -38,11 +36,13 @@ autoinstall:
       apt-get update &&
       apt-get -y install vlc gimp audacity inkscape synaptic"
     - >-
-      curtin in-target -- fallocate -l 2G /swapfile &&
-      chmod 600 /swapfile &&
-      mkswap /swapfile &&
-      swapon /swapfile &&
-      echo '/swapfile none swap sw 0 0' >> /etc/fstab
+      curtin in-target -- grub-install --target=x86_64-efi
+      --efi-directory=/boot/efi --bootloader-id=ubuntu --removable --recheck
+    - curtin in-target -- update-grub
+    - >-
+      curtin in-target -- mkdir -p /boot/efi/EFI/Boot
+    - >-
+      curtin in-target -- mkdir -p /etc/lightdm/lightdm.conf.d
   user-data:
     # cloud-config content applied in the installed system
     write_files:
