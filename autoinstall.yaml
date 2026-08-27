@@ -36,7 +36,13 @@ autoinstall:
       add-apt-repository -y multiverse &&
       add-apt-repository -y restricted &&
       apt-get update &&
-      apt-get -y install vlc gimp blender audacity inkscape synaptic"
+      apt-get -y install vlc gimp audacity inkscape synaptic"
+    - >-
+      curtin in-target -- fallocate -l 2G /swapfile &&
+      chmod 600 /swapfile &&
+      mkswap /swapfile &&
+      swapon /swapfile &&
+      echo '/swapfile none swap sw 0 0' >> /etc/fstab
   user-data:
     # cloud-config content applied in the installed system
     write_files:
