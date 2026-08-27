@@ -31,10 +31,13 @@ autoinstall:
       add-apt-repository -y multiverse &&
       add-apt-repository -y restricted &&
       apt-get update &&
-      apt-get -y install xubuntu-desktop ubuntu-restricted-extras ubuntu-drivers-common vlc gimp audacity inkscape synaptic"
+      apt-get -y install xubuntu-desktop ubuntu-restricted-extras &&
+      apt-get -y install ubuntu-drivers-common vlc gimp audacity &&
+      apt-get -y install inkscape synaptic"
     - >-
       curtin in-target -- grub-install --target=x86_64-efi
-      --efi-directory=/boot/efi --bootloader-id=ubuntu --removable --recheck
+      --efi-directory=/boot/efi --bootloader-id=ubuntu
+      --removable --recheck
     - curtin in-target -- update-grub
     - >-
       curtin in-target -- mkdir -p /boot/efi/EFI/Boot
