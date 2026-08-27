@@ -21,14 +21,6 @@ autoinstall:
     layout:
       name: direct
 
-  apt:
-    mirror-selection:
-      primary:
-        - uri: http://br.archive.ubuntu.com/ubuntu
-          arches:
-            - amd64
-    fallback: offline-install
-
   codecs:
     install: true
 
